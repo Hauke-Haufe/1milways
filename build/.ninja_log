@@ -1,0 +1,22 @@
+# ninja log v5
+1	630	1753544441204814212	gladsources/glad/args.txt	a633475e8148e5fe
+1	630	1753544441204814212	/home/hauke/code/1milways/build/gladsources/glad/args.txt	a633475e8148e5fe
+709	760	1753544441333288523	src/kernel	d8d0a71363c4f9a3
+1	630	1753544441204814212	gladsources/glad/include/KHR/khrplatform.h	a633475e8148e5fe
+1	680	1753544441251813451	src/CMakeFiles/kernel.dir/main.cu.o	f601e23f9516c1ca
+1	630	1753544441204814212	/home/hauke/code/1milways/build/gladsources/glad/src/gl.c	a633475e8148e5fe
+2	151	1753548269383239700	src/CMakeFiles/Render.dir/Renderer.cpp.o	92c879fa166b1700
+1	630	1753544441204814212	gladsources/glad/include/glad/gl.h	a633475e8148e5fe
+1	709	1753544441280812981	src/CMakeFiles/kernel.dir/newton.cu.o	879fe517974a71d0
+2	81	1753547945830870109	CMakeFiles/glad.dir/gladsources/glad/src/gl.c.o	58c9030fb6c079de
+741	769	1753544441343168591	src/main	9fb1fe024f2c2a26
+2	293	1753548195047518481	src/CMakeFiles/Render.dir/Shader.cpp.o	35cc050bfe26a0c8
+1	9	1753547630958172951	src/CMakeFiles/Render.dir/Particles.cpp.o	7f5a12bde1c9274f
+1	630	1753544441204814212	gladsources/glad/src/gl.c	a633475e8148e5fe
+1	38	1753548308857328045	src/libRender.a	5cac1da55c27cd66
+1	630	1753544441204814212	/home/hauke/code/1milways/build/gladsources/glad/include/glad/gl.h	a633475e8148e5fe
+1	34	1753547974639013657	libglad.a	6113df52c6b9f686
+631	655	1753544441228813824	src/CMakeFiles/main.dir/main.cpp.o	41a8c0a740593476
+1	630	1753544441204814212	/home/hauke/code/1milways/build/gladsources/glad/include/KHR/khrplatform.h	a633475e8148e5fe
+1	122	1753548713903758364	src/CMakeFiles/main.dir/main.cpp.o	41a8c0a740593476
+122	166	1753548713947819530	src/main	67c65e4d0806229

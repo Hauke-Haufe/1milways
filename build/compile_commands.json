@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/hauke/code/1milways/build",
+  "command": "/usr/bin/gcc -I/home/hauke/code/1milways/build/gladsources/glad/include -I/home/hauke/code/1milways/include -g -o CMakeFiles/glad.dir/gladsources/glad/src/gl.c.o -c /home/hauke/code/1milways/build/gladsources/glad/src/gl.c",
+  "file": "/home/hauke/code/1milways/build/gladsources/glad/src/gl.c",
+  "output": "CMakeFiles/glad.dir/gladsources/glad/src/gl.c.o"
+},
+{
+  "directory": "/home/hauke/code/1milways/build",
+  "command": "/usr/bin/g++ -I/home/hauke/code/1milways/include -I/home/hauke/code/1milways/build/gladsources/glad/include -I/home/hauke/code/1milways/build/_deps/glm-src/glm/.. -g -o src/CMakeFiles/Render.dir/Shader.cpp.o -c /home/hauke/code/1milways/src/Shader.cpp",
+  "file": "/home/hauke/code/1milways/src/Shader.cpp",
+  "output": "src/CMakeFiles/Render.dir/Shader.cpp.o"
+},
+{
+  "directory": "/home/hauke/code/1milways/build",
+  "command": "/usr/bin/g++ -I/home/hauke/code/1milways/include -I/home/hauke/code/1milways/build/gladsources/glad/include -I/home/hauke/code/1milways/build/_deps/glm-src/glm/.. -g -o src/CMakeFiles/Render.dir/Particles.cpp.o -c /home/hauke/code/1milways/src/Particles.cpp",
+  "file": "/home/hauke/code/1milways/src/Particles.cpp",
+  "output": "src/CMakeFiles/Render.dir/Particles.cpp.o"
+},
+{
+  "directory": "/home/hauke/code/1milways/build",
+  "command": "/usr/bin/g++ -I/home/hauke/code/1milways/include -I/home/hauke/code/1milways/build/gladsources/glad/include -I/home/hauke/code/1milways/build/_deps/glm-src/glm/.. -g -o src/CMakeFiles/Render.dir/Renderer.cpp.o -c /home/hauke/code/1milways/src/Renderer.cpp",
+  "file": "/home/hauke/code/1milways/src/Renderer.cpp",
+  "output": "src/CMakeFiles/Render.dir/Renderer.cpp.o"
+},
+{
+  "directory": "/home/hauke/code/1milways/build",
+  "command": "/usr/bin/g++ -I/home/hauke/code/1milways/include -I/home/hauke/code/1milways/build/gladsources/glad/include -g -o src/CMakeFiles/main.dir/main.cpp.o -c /home/hauke/code/1milways/src/main.cpp",
+  "file": "/home/hauke/code/1milways/src/main.cpp",
+  "output": "src/CMakeFiles/main.dir/main.cpp.o"
+}
+]
