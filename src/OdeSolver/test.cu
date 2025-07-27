@@ -1,5 +1,5 @@
 #include "OdeSolver/half4.cuh"
-#include "OdeSolver/methods.cuh"
+#include "OdeSolver/Euler.cuh"
 
 
 int main() {

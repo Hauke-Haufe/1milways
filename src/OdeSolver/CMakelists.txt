@@ -1,3 +1,0 @@
-add_library(Solvers STATIC newton.cu)
-
-add_executable(kernel test.cu newton.cu)

@@ -31,8 +31,11 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(glm)
 
 find_package(glfw3 REQUIRED)
+find_package(CUDAToolkit REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CUDAToolkit_INCLUDE_DIRS})
+
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)

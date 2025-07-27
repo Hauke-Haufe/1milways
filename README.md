@@ -1,2 +1,2 @@
-# project1
-some testing for c++
+# 1MWays
+A toy project for learning some cuda, c++ and OpenGl basis

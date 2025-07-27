@@ -3,5 +3,6 @@
 #pragma once
 
 // Define the number of steps for the optimal Euler integration
-constexpr int OPTIMAL_EULER_STEPS = 4;
+constexpr int EULER_STEPS = 4;
+constexpr int NUM_THREADS_EULER = 128;
 
