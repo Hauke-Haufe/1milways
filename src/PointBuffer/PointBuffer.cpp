@@ -1,11 +1,6 @@
-#include "ICGenerator/InitialValues.h"
+#include "PointBuffer/PointBuffer.h"
 
-#include <cstdlib>
-#include "string.h"
-
-
-
-InitialValues::InitialValues(sizt_t n, MemSpace space){
+PointBuffer::PointBuffer(size_t n, MemSpace space){
 
     space_ = space;
     count_ = n;
@@ -29,14 +24,14 @@ InitialValues::InitialValues(sizt_t n, MemSpace space){
 
 }
 
-InitialValues::InitialValues(InitialValues&& other) noexcept
+PointBuffer::PointBuffer(PointBuffer&& other) noexcept
     : count_(other.count_), buf_(other.buf_), space_(other.space_)
 {
     other.count_  = 0;
     other.buf_ = nullptr;
 }
 
-InitialValues& InitialValues::operator+=(const InitialValues& rhs) {
+PointBuffer& PointBuffer::operator+=(const PointBuffer& rhs) {
 
     float4* newBuf;
     switch (space_)
@@ -85,8 +80,7 @@ InitialValues& InitialValues::operator+=(const InitialValues& rhs) {
     return *this;
 }
 
-InitialValues& InitialValues::operator+=(InitialValues&& rhs) noexcept {
-
+PointBuffer& PointBuffer::operator+=(PointBuffer&& rhs) noexcept {
 
     float4* newBuf;
 
@@ -152,38 +146,4 @@ InitialValues& InitialValues::operator+=(InitialValues&& rhs) noexcept {
     rhs.count_  = 0;
     
     return *this;
-}
-
-InitialValues OneD::genline(size_t n, float4 start, float4 end, MemSpace space){
-
-    InitialValues iv(n, space);
-    auto buffer = iv.getDataPtr(); 
-
-    auto f = [=] __device__ (double u) {
-        return make_float4(
-            u * start.x + (1-u) * end.x,
-            u * start.y + (1-u) * end.y,
-            u * start.z + (1-u) * end.z,
-            u * start.w + (1-u) * end.w
-        );
-    };
-
-    dim3 block(128);
-    dim3 grid((n + block.x - 1) / block.x);
-    gen1DKernelUniform<<<grid, block>>>(buffer, n, f);
-}
-
-InitialValues OneD::gencircle(size_t n, float4 center, double radius, float4 normal, MemSpace space){
-
-    InitialValues iv(n, space);
-
-
-    auto f = [] __device__ (double u) {
-        
-
-    };
-
-    dim3 block(128);
-    dim3 grid((n + block.x - 1) / block.x);
-    gen1DKernelUniform<<<grid, block>>>(buffer, n, f);
 }

@@ -1,0 +1,1 @@
+add_library(IVP STATIC InitialConditions.cpp GeneratorKernels.cu InitialConditions.cu)
