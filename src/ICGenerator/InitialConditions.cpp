@@ -9,21 +9,13 @@ static PointBuffer prepareAndRunKernel(
     MemSpace requestedSpace,
     std::function<void(float4*, size_t)> kernelLauncher)
 {
-    //
-    // 1. Always allocate a buffer in device space for kernel execution
-    //
+
     PointBuffer deviceBuf(n, MemSpace::Device);
 
-    //
-    // 2. Launch the kernel on the device buffer
-    //
     kernelLauncher(deviceBuf.data(), n);
 
-    //
-    // 3. Convert the results to the user-requested memory space
-    //
     if (requestedSpace == MemSpace::Device)
-        return deviceBuf;  // Move return
+        return deviceBuf;  
 
     return deviceBuf.to(requestedSpace);
 }
