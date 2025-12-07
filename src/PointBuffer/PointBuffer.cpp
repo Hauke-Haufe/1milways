@@ -27,7 +27,6 @@ PointBuffer::PointBuffer(size_t n, MemSpace space){
 PointBuffer::PointBuffer(PointBuffer&& other) noexcept
     : count_(other.count_), buf_(other.buf_), space_(other.space_)
 {
-    other.count_  = 0;
     other.buf_ = nullptr;
 }
 
@@ -147,3 +146,74 @@ PointBuffer& PointBuffer::operator+=(PointBuffer&& rhs) noexcept {
     
     return *this;
 }
+
+PointBuffer PointBuffer::to(MemSpace newSpace) const
+{
+    // If nothing to convert, return a copy in the same space
+    if (newSpace == space_) {
+        PointBuffer copy(count_, space_);
+        size_t bytes = count_ * sizeof(float4);
+
+        switch (space_) {
+        case MemSpace::Host:
+            std::memcpy(copy.buf_, buf_, bytes);
+            break;
+
+        case MemSpace::Device:
+            cudaMemcpy(copy.buf_, buf_, bytes, cudaMemcpyDeviceToDevice);
+            break;
+
+        case MemSpace::Unified:
+            cudaMemcpy(copy.buf_, buf_, bytes, cudaMemcpyDeviceToDevice);
+            break;
+        }
+
+        return copy;
+    }
+
+    // Allocate output buffer in new space
+    PointBuffer out(count_, newSpace);
+    size_t bytes = count_ * sizeof(float4);
+
+    // Conversion matrix: where memory comes from and where it must go
+    switch (space_) {
+    case MemSpace::Host:
+        switch (newSpace) {
+        case MemSpace::Device:
+            cudaMemcpy(out.buf_, buf_, bytes, cudaMemcpyHostToDevice);
+            break;
+        case MemSpace::Unified:
+            cudaMemcpy(out.buf_, buf_, bytes, cudaMemcpyHostToDevice); // GPU sees unified
+            break;
+        default: break;
+        }
+        break;
+
+    case MemSpace::Device:
+        switch (newSpace) {
+        case MemSpace::Host:
+            cudaMemcpy(out.buf_, buf_, bytes, cudaMemcpyDeviceToHost);
+            break;
+        case MemSpace::Unified:
+            cudaMemcpy(out.buf_, buf_, bytes, cudaMemcpyDeviceToDevice);
+            break;
+        default: break;
+        }
+        break;
+
+    case MemSpace::Unified:
+        switch (newSpace) {
+        case MemSpace::Host:
+            cudaMemcpy(out.buf_, buf_, bytes, cudaMemcpyDeviceToHost);
+            break;
+        case MemSpace::Device:
+            cudaMemcpy(out.buf_, buf_, bytes, cudaMemcpyDeviceToDevice);
+            break;
+        default: break;
+        }
+        break;
+    }
+
+    return out;
+}
+

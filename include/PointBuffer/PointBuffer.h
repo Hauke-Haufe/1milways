@@ -19,6 +19,8 @@ public:
     PointBuffer& operator+=(const PointBuffer& other) noexcept;
     PointBuffer& operator+=(PointBuffer&& other) noexcept;
 
+    PointBuffer PointBuffer::to(MemSpace newSpace) const;
+
     float4* data() noexcept { return buf_; }
     const float4* data() const noexcept { return buf_; }
     size_t size() const noexcept { return count_; }

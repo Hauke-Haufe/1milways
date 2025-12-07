@@ -2,45 +2,79 @@
 #include "ICGenerator/InitialConditions.cuh"
 
 #include <cuda_runtime.h>
+#include <functional>
 
+static PointBuffer prepareAndRunKernel(
+    size_t n,
+    MemSpace requestedSpace,
+    std::function<void(float4*, size_t)> kernelLauncher)
+{
+    //
+    // 1. Always allocate a buffer in device space for kernel execution
+    //
+    PointBuffer deviceBuf(n, MemSpace::Device);
 
-PointBuffer OneD::genLine(size_t n, float3 start, float3 end, SampleOption opt,  MemSpace space){
+    //
+    // 2. Launch the kernel on the device buffer
+    //
+    kernelLauncher(deviceBuf.data(), n);
 
-    PointBuffer ic(n, space);
-    auto buffer = ic.data(); 
+    //
+    // 3. Convert the results to the user-requested memory space
+    //
+    if (requestedSpace == MemSpace::Device)
+        return deviceBuf;  // Move return
 
-    launchGenLine(buffer, n, start, end, opt);
-
-    return ic;
+    return deviceBuf.to(requestedSpace);
 }
 
-PointBuffer OneD::genCircle(size_t n, float3 center, double radius, float3 normal, SampleOption opt, MemSpace space){
-
-    PointBuffer ic(n, space);
-    
-    auto buffer = ic.data();
-
-    launchGenCircle(buffer, n, center, radius, normal, opt);
-
-    return ic;
+PointBuffer OneD::genLine(size_t n, float3 start, float3 end,
+                          SampleOption opt, MemSpace space)
+{
+    return prepareAndRunKernel(
+        n, space,
+        [&](float4* ptr, size_t count)
+        {
+            launchGenLine(ptr, count, start, end, opt);
+        }
+    );
 }
 
-PointBuffer TwoD::genPlane(size_t n, float3 center,  float3 normal, float width, float height, SampleOption opt, MemSpace space){
-
-    PointBuffer ic(n, space);
-    
-    auto buffer = ic.data();
-
-    launchGenPlane(buffer, n, center, normal, width, height, opt);
-    return ic;
+PointBuffer OneD::genCircle(size_t n, float3 center, double radius,
+                            float3 normal, SampleOption opt,
+                            MemSpace space)
+{
+    return prepareAndRunKernel(
+        n, space,
+        [&](float4* ptr, size_t count)
+        {
+            launchGenCircle(ptr, count, center, radius, normal, opt);
+        }
+    );
 }
 
-PointBuffer TwoD::genDisk(size_t n, float3 center,  float3 normal, double radius,  SampleOption opt, MemSpace space){
+PointBuffer TwoD::genPlane(size_t n, float3 center, float3 normal,
+                           float width, float height,
+                           SampleOption opt, MemSpace space)
+{
+    return prepareAndRunKernel(
+        n, space,
+        [&](float4* ptr, size_t count)
+        {
+            launchGenPlane(ptr, count, center, normal, width, height, opt);
+        }
+    );
+}
 
-    PointBuffer ic(n, space);
-    
-    auto buffer = ic.data();
-
-    launchGenDisk(buffer, n, center, normal,radius, opt);
-    return ic;
+PointBuffer TwoD::genDisk(size_t n, float3 center, float3 normal,
+                          double radius, SampleOption opt,
+                          MemSpace space)
+{
+    return prepareAndRunKernel(
+        n, space,
+        [&](float4* ptr, size_t count)
+        {
+            launchGenDisk(ptr, count, center, normal, radius, opt);
+        }
+    );
 }
