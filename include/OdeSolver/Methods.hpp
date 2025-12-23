@@ -16,9 +16,9 @@ enum SolverMethod{
 };
 
 enum SolverFlags : uint32_t {
-    FLAG_DEFAULT  = 0,  //PM MEM
-    FLAG_P2 = 1 << 0,
-    FLAG_TM_MEM = 1 << 1
+    FLAG_NONE        = 0,
+    FLAG_P2          = 1 << 0,   // trail length power-of-two optimization
+    FLAG_TIME_MAJOR  = 1 << 1    // explicitly specify time-major layout
 };
 
 inline SolverFlags operator|(SolverFlags a, SolverFlags b) {

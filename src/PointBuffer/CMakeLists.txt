@@ -1,1 +1,0 @@
-add_library(PointBuffer STATIC PointBuffer.cpp)
